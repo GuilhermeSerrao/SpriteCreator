@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class FileManager : MonoBehaviour
 {
-    public Texture[,] grid; 
+    public Texture[,] grid;
+    public Transform start;
+
+    public GameObject panel;
+    public RawImage defaultImage;
 
     private string path;
     private string[] files;
@@ -17,7 +21,6 @@ public class FileManager : MonoBehaviour
 
     private int fileCounter = 0;
 
-    public RawImage image;
 
     public Texture tempTexture;
 
@@ -47,8 +50,7 @@ public class FileManager : MonoBehaviour
                     tempTexture = www.texture;
 
                     grid[i, j] = tempTexture;
-
-                    image.texture = grid[i, j];
+                    
 
                     print("file" + fileCounter);
                 
@@ -71,7 +73,11 @@ public class FileManager : MonoBehaviour
         {
             for (int j = 0; j < rows; j++)
             {
-                //var image = Instantiate(new RawImage, transform.position, transform.rotation);
+                var image = Instantiate(defaultImage, transform.position, transform.rotation);
+                image.transform.parent = panel.transform;
+                
+                image.texture = grid[i,j];
+                //.transform.position = new Vector2(start.position.x * (i * image.texture.width), start.position.y * (j * image.texture.height));
             }
         }
     }
