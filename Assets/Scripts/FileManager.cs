@@ -23,8 +23,8 @@ public class FileManager : MonoBehaviour
     private string path;
     private string[] files;
 
-    public int columns;
     public int rows;
+    public int columns;
 
     private int fileCounter = 0;
 
@@ -46,9 +46,9 @@ public class FileManager : MonoBehaviour
 
         button.SetActive(false);
 
-        for (int i = 0; i < columns; i++)
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < rows; j++)
+            for (int j = 0; j < columns; j++)
             {
                 if (fileCounter < files.Length)
                 {
@@ -56,7 +56,7 @@ public class FileManager : MonoBehaviour
                     WWW www = new WWW("file:///" + files[fileCounter]);
                     tempTexture = www.texture;
 
-                    grid[i, j] = tempTexture;
+                    grid[j, i] = tempTexture;
                     
 
                     print("file" + fileCounter);
@@ -78,21 +78,21 @@ public class FileManager : MonoBehaviour
     public void SpawnGrid()
     {
         
-        for (int i = 0; i < columns; i++)
+        for (int i = 0; i < rows; i++)
         {
-            for (int j = 0; j < rows; j++)
+            for (int j = 0; j < columns; j++)
             {
                 var image = Instantiate(defaultImage, transform.position, transform.rotation);                 
                 
                 image.transform.parent = panel.transform;                
-                image.texture = grid[i,j];
-                image.GetComponent<RectTransform>().sizeDelta = new Vector2(grid[i, j].width / factor, grid[i, j].height / factor);
+                image.texture = grid[j,i];
+                image.GetComponent<RectTransform>().sizeDelta = new Vector2(grid[j, i].width / factor, grid[j, i].height / factor);
                 print("Width: " + image.texture.width + "\n Height: " + image.texture.height);
-                image.transform.position = new Vector2(start.position.x + (i * image.texture.width / factor), start.position.y - (j * image.texture.height / factor));
+                image.transform.position = new Vector2(start.position.x + (j * image.texture.width / factor), start.position.y - (i * image.texture.height / factor));
             }
         }
 
-        print(Mathf.RoundToInt((grid[0, 0].width * columns) / factor) + " " + Mathf.RoundToInt((grid[0, 0].height * rows) / factor));
+        print(Mathf.RoundToInt((grid[0, 0].width * rows) / factor) + " " + Mathf.RoundToInt((grid[0, 0].height * columns) / factor));
 
         FindObjectOfType<ScreenShotHandler>().TakeScreenshot(Screen.width, Screen.height, name);
         

@@ -240,8 +240,8 @@ MonoBehaviour:
   button: {fileID: 1699631727}
   defaultImage: {fileID: 1715671419156468248, guid: f6f1337199cb8ec44979a11e28410726,
     type: 3}
-  columns: 3
   rows: 4
+  columns: 3
   tempTexture: {fileID: 0}
 --- !u!1 &334475247
 GameObject:
